@@ -3,6 +3,10 @@ language:
 
 before_install:
   - pip install --user cpp-coveralls
+  
+addons:
+  sonarcloud:
+    organization: "nfilin480"
 
 script:
   - qmake
@@ -14,11 +18,6 @@ after_success:
   - coveralls --root . -E ".*external.*" -E ".*tests.*"
   - build-wrapper-linux-x86-64 --out-dir bw-output make clean all
   - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
-   
-addons:
-  sonarcloud:
-    organization: "nfilin480"
-
 
 cache:
   directories:
