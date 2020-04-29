@@ -36,7 +36,8 @@ TEST(showtrimmedfromstart, standart){
     int output_file = open(output, O_RDONLY);
     char *outBuf = (char *)malloc(sizeof(char)*1024);
     char *copyBuf = (char *)malloc(sizeof(char)*1024);
-    int copyCount, outputCount;
+    int copyCount;
+    int outputCount;
 
     copyCount = read(copy_file, copyBuf, 256);
     outputCount = read(output_file, outBuf, 256);
@@ -78,7 +79,8 @@ TEST(showtrimmedfromstart, no_standart_file){
     int output_f = open(output_orig, O_RDONLY);
     char *bufOut = (char *)malloc(sizeof(char)*1024);
     char *bufCopy = (char *)malloc(sizeof(char)*1024);
-    int counterCopy, counterOut;
+    int counterCopy;
+    int counterOut;
     
     counterCopy = read(copy_f, bufCopy, 256);
     counterOut = read(output_f, bufOut, 256);
