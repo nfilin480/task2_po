@@ -19,7 +19,7 @@ TEST(showtrimmedfromstart, standart){
     load (txt, filename);
 
     int newStdout = open(output_copy, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-    ASSERT_NE(newStdout, -1);
+    
     int oldStdout = dup(STDOUT_FILENO);
     close(STDOUT_FILENO);
     dup2(newStdout, STDOUT_FILENO);
@@ -30,31 +30,31 @@ TEST(showtrimmedfromstart, standart){
     close(newStdout);
     dup2(oldStdout, STDOUT_FILENO);
 
-    char *originalOutput = (char *)malloc(sizeof(char)*2048);
-    snprintf(originalOutput, 2048, "%s/output_show.txt", INPUTDIRFILESHOW);
+    char *output = (char *)malloc(sizeof(char)*1024);
+    snprintf(output, 1024, "%s/output_show.txt", INPUTDIRFILESHOW);
 
-    int testFD = open(output_copy, O_RDONLY);
-    int originalFD = open(originalOutput, O_RDONLY);
+    int copy_file = open(output_copy, O_RDONLY);
+    int output_file = open(output, O_RDONLY);
     char *outBuf = (char *)malloc(sizeof(char)*1024);
-    char *testBuf = (char *)malloc(sizeof(char)*1024);
-    int testCount, outputCount;
-    free(originalOutput);
+    char *copyBuf = (char *)malloc(sizeof(char)*1024);
+    int copyCount, outputCount;
+    free(output);
 
-    testCount = read(testFD, testBuf, 256);
-    outputCount = read(originalFD, outBuf, 256);
-    close(testFD);
-    close(originalFD);
+    copyCount = read(copy_file, copyBuf, 256);
+    outputCount = read(output_file, outBuf, 256);
+    close(copy_file);
+    close(output_file);
 
-    ASSERT_EQ(testCount, outputCount);
-    for(int i = 0; i < testCount; i++)
-        ASSERT_EQ(outBuf[i], testBuf[i]);
+    ASSERT_EQ(copyCount, outputCount);
+    for(int i = 0; i < copyCount; i++)
+        ASSERT_EQ(outBuf[i], copyBuf[i]);
 
     remove_all(txt);
 
 
 }
 
-TEST(showtrimmedfromstart, empty_file){
+TEST(showtrimmedfromstart, no_standart_file){
     text txt = create_text();
     char *filename = (char*) malloc(sizeof(char*) * 1024);
     char *output_copy = (char*) malloc(sizeof(char*) * 1024);
@@ -63,7 +63,7 @@ TEST(showtrimmedfromstart, empty_file){
     load (txt, filename);
 
     int newStdout = open(output_copy, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-    ASSERT_NE(newStdout, -1);
+    
     int oldStdout = dup(STDOUT_FILENO);
     close(STDOUT_FILENO);
     dup2(newStdout, STDOUT_FILENO);
@@ -74,24 +74,24 @@ TEST(showtrimmedfromstart, empty_file){
     close(newStdout);
     dup2(oldStdout, STDOUT_FILENO);
 
-    char *originalOutput = (char *)malloc(sizeof(char)*2048);
-    snprintf(originalOutput, 2048, "%s/output.txt", INPUTDIRFILESHOW);
+    char *output = (char *)malloc(sizeof(char)*1024);
+    snprintf(output, 1024, "%s/output.txt", INPUTDIRFILESHOW);
 
-    int testFD = open(output_copy, O_RDONLY);
-    int originalFD = open(originalOutput, O_RDONLY);
+    int copy_file = open(output_copy, O_RDONLY);
+    int output_file = open(output, O_RDONLY);
     char *outBuf = (char *)malloc(sizeof(char)*1024);
-    char *testBuf = (char *)malloc(sizeof(char)*1024);
-    int testCount, outputCount;
-    free(originalOutput);
+    char *copyBuf = (char *)malloc(sizeof(char)*1024);
+    int copyCount, outputCount;
+    free(output);
 
-    testCount = read(testFD, testBuf, 256);
-    outputCount = read(originalFD, outBuf, 256);
-    close(testFD);
-    close(originalFD);
+    copyCount = read(copy_file, copyBuf, 256);
+    outputCount = read(output_file, outBuf, 256);
+    close(copy_file);
+    close(output_file);
 
-    ASSERT_EQ(testCount, outputCount);
-    for(int i = 0; i < testCount; i++)
-        ASSERT_EQ(outBuf[i], testBuf[i]);
+    ASSERT_EQ(copyCount, outputCount);
+    for(int i = 0; i < copyCount; i++)
+        ASSERT_EQ(outBuf[i], copyBuf[i]);
 
     remove_all(txt);
 
