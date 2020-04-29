@@ -60,7 +60,7 @@ int main()
             continue;
         }
 
-    /*Сохраняем
+    /*Сохраняем*/
          if (strcmp(cmd, "save") == 0) {
             if ((arg = strtok(NULL, " \n")) == NULL) {
                 fprintf(stderr, "Usage: save filename\n");
@@ -69,7 +69,7 @@ int main()
             }
             continue;
         }
-*/
+
 	/*Выводим без ведущих пробелов*/
 	  if (strcmp(cmd, "showtrimmedfromstart") == 0) {
             showfromstart(txt);
